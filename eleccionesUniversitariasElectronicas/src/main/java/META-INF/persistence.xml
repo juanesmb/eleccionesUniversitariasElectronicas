@@ -2,10 +2,16 @@
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="eleccionesUniversitariasElectronicas">
 	<class>co.ufps.entities.EleccionEntity</class>
+	<class>co.ufps.entities.CandidatoEntity</class>
+	<class>co.ufps.entities.EstamentoEntity</class>
+	<class>co.ufps.entities.TipoDocumentoEntity</class>
+	<class>co.ufps.entities.VotoEntity</class>
+	<class>co.ufps.entities.VotanteEntity</class>
+				
 	<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://queenie.db.elephantsql.com:5432/mnjgxshj"/>
-			<property name="javax.persistence.jdbc.user" value="mnjgxshj"/>
-			<property name="javax.persistence.jdbc.password" value="Uzjqo00sxV0W9OzPEB1q3wpoVvGMbbUV"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://batyr.db.elephantsql.com/uualdbvs"/>
+			<property name="javax.persistence.jdbc.user" value="uualdbvs"/>
+			<property name="javax.persistence.jdbc.password" value="OLAXeid041IVmTosP-zctDccgEfGPaeV"/>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 			<property name="javax.persistence.schema-generation.database.action" value="update"/>
 			<property name="hibernate.show_sql" value="true"/>
