@@ -19,7 +19,7 @@ public class VotanteEntity {
 	private String nombre;
 	
 	@Column (length=50)
-	private String apellido;
+	private String email;
 	
 	@Column (length=20)
 	private String documento;

@@ -1,4 +1,4 @@
-package co.ufps.dao;
+package co.ufps.jpa;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import co.ufps.beans.Candidato;
+import co.ufps.dao.CandidatoDao;
 import co.ufps.entities.CandidatoEntity;
 import co.ufps.util.ConexionPostgreSQLJPA;
 

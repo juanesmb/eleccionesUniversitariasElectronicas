@@ -1,4 +1,4 @@
-package co.ufps.dao;
+package co.ufps.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import co.ufps.beans.Eleccion;
+import co.ufps.dao.EleccionDao;
 import co.ufps.entities.EleccionEntity;
 import co.ufps.util.ConexionPostgreSQLJPA;
 
