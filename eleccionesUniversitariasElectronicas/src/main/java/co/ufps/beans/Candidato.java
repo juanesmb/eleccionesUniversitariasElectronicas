@@ -22,4 +22,11 @@ public class Candidato implements Serializable {
 	private Integer eleccion;
 
 	private Integer numero;
+	
+	public Candidato(String documento, String nombre, String apellido)
+	{
+		this.documento = documento;
+		this.nombre = nombre;
+		this.apellido = apellido;
+	}
 }

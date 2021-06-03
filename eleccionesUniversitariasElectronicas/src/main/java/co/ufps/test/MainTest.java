@@ -1,5 +1,6 @@
 package co.ufps.test;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -19,10 +20,16 @@ public class MainTest {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		
-		consultarElecciones(em);
+		insertarElecciones(em);
 		
 		tx.commit();
 		em.close();
+	}
+
+	private static void insertarElecciones(EntityManager em) {
+		
+		em.persist(new EleccionEntity("elecciones presidencia estudiantil",Timestamp.valueOf("2021-12-11 08:00:00"),Timestamp.valueOf("2021-12-12 08:00:00"),"presidencia estudiantil"));
+		em.persist(new EleccionEntity("elecciones consejo superior",Timestamp.valueOf("2022-03-10 10:00:00"),Timestamp.valueOf("2022-03-12 10:00:00"),"consejo superior"));
 	}
 
 	private static void consultarElecciones(EntityManager em) {
