@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 public class TipoDocumento implements Serializable {
 	private Integer id;
 	
-
 	private String descripcion;
 	
 }

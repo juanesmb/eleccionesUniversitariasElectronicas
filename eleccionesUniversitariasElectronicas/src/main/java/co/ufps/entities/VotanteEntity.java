@@ -4,15 +4,23 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity (name="votante")
 public class VotanteEntity {
 
 	@Id
+	@GeneratedValue
 	private Integer id;
 	 
 	@Column (length=100)
@@ -24,9 +32,22 @@ public class VotanteEntity {
 	@Column (length=20)
 	private String documento;
 	
-	@Column 
-	private Integer tipodocumento;
+	@ManyToOne
+	@JoinColumn(name="tipodocumento")
+	private   TipoDocumentoEntity tipodocumento;
 	
-	@Column 
-	private Integer eleccion;
+	@ManyToOne
+	@JoinColumn     (name="eleccion")
+	private EleccionEntity eleccion;
+	
+
+
+	public VotanteEntity(String nombre, String email, String documento) {
+		this.nombre = nombre;
+		this.email = email;
+		this.documento = documento;
+	}
+	
+	
+	
 }

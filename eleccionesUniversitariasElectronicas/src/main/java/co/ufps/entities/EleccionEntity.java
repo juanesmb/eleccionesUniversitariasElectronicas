@@ -9,9 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity (name="eleccion")
 public class EleccionEntity {
 
@@ -34,11 +38,17 @@ public class EleccionEntity {
 	@OneToMany(mappedBy="eleccion")
 	private List<CandidatoEntity> candidatos;
 
-	public EleccionEntity()
-	{
-		
-	}
+	@OneToMany(mappedBy="eleccion")
+	private List<VotanteEntity> votantes;
 	
+	
+	
+	public void addVotante(VotanteEntity votante)
+	{
+		votantes.add(votante);
+		votante.setEleccion(this);
+	}
+
 	public EleccionEntity(String nombre, Timestamp fechaInicio, Timestamp fechaFin, String cargo) {
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;

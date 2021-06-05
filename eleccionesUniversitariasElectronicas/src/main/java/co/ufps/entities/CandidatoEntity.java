@@ -9,9 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity (name="candidato")
 public class CandidatoEntity {
 
@@ -36,9 +40,7 @@ public class CandidatoEntity {
 	@Column
 	private Integer numero;
 
-	public CandidatoEntity() {
-		// TODO Auto-generated constructor stub
-	}
+
 	
 	public CandidatoEntity(String documento, String nombre, String apellido) {
 		this.documento = documento;

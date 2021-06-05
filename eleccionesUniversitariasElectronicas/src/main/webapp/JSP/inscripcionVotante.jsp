@@ -37,20 +37,8 @@
 				<h2>Registro de población electoral</h2>
 
 				<form action="insertarVotante" method="post">
-					<select class="form-select" aria-label="Default select example"
-						name="estamentoId">
-						<c:forEach var="i" items="${estamentos}">
-							<option selected>Seleccione el estamento</option>
-							<option value="${i.id}">"${i.descripcion}"</option>
-						</c:forEach>
-					</select> 
-					<select class="form-select" aria-label="Default select example"
-						name="documentoId">
-						<c:forEach var="i" items="${documentos}">
-							<option selected>Seleccione el tipo de documento</option>
-							<option value="${i.id}">"${i.descripcion}"</option>
-						</c:forEach>
-					</select>
+				 
+					
 
 					<fieldset class="form-group">
 						<label>Documento</label> <input type="text" class="form-control"
@@ -66,13 +54,20 @@
 						<label>Email</label> <input type="text" class="form-control"
 							name="email" required="required" maxlength="50">
 					</fieldset>
-
+		
 					<select class="form-select" aria-label="Default select example"
 						name="eleccionId">
 						<c:forEach var="i" items="${elecciones}">
 							<option selected>Seleccione elección</option>
 							<option value="${i.id}">
 								"${i.nombre}"&nbsp;"${i.fechaInicio}"-"${i.fechaFin}"</option>
+						</c:forEach>
+					</select>
+					<select class="form-select" aria-label="Default select example"
+						name="tipoDocumentoId">
+						<c:forEach var="i" items="${tipodocumentos}">
+							<option selected>Seleccione el tipo de documento</option>
+							<option value="${i.id}">"${i.descripcion}"</option>
 						</c:forEach>
 					</select> <br>
 					<button type="submit" class="btn btn-danger">Registrar
