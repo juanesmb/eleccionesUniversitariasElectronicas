@@ -35,6 +35,16 @@ public class CandidatoEntity {
 	
 	@Column
 	private Integer numero;
+
+	public CandidatoEntity() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public CandidatoEntity(String documento, String nombre, String apellido) {
+		this.documento = documento;
+		this.nombre = nombre;
+		this.apellido = apellido;
+	}
 	
 	
 }

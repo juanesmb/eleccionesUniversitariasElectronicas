@@ -27,7 +27,7 @@ public class CandidatoJPA implements CandidatoDao{
 		this.insert(candidato);
 	}
 	
-	private void insert(CandidatoEntity c) {
+	public void insert(CandidatoEntity c) {
 		EntityManager em = this.conexion.getEm();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

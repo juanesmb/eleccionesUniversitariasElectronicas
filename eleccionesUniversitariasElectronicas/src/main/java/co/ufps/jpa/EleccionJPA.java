@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import co.ufps.beans.Eleccion;
 import co.ufps.dao.EleccionDao;
@@ -23,6 +24,15 @@ public class EleccionJPA implements EleccionDao{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void insert(EleccionEntity e) {
+		EntityManager em = this.conexion.getEm();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		em.persist(e);
+		tx.commit();
+	}
 
 	@Override
 	public void update(Eleccion e) {
@@ -37,9 +47,10 @@ public class EleccionJPA implements EleccionDao{
 	}
 
 	@Override
-	public Eleccion select(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public EleccionEntity select(Integer id) {
+		EntityManager em = this.conexion.getEm();
+		EleccionEntity e = em.find(EleccionEntity.class, id);
+		return e;
 	}
 
 	@Override

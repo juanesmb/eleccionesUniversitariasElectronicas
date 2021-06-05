@@ -8,6 +8,8 @@ import co.ufps.beans.Candidato;
 import co.ufps.beans.Eleccion;
 import co.ufps.dao.CandidatoDao;
 import co.ufps.dao.EleccionDao;
+import co.ufps.entities.CandidatoEntity;
+import co.ufps.entities.EleccionEntity;
 import co.ufps.jpa.CandidatoJPA;
 import co.ufps.jpa.EleccionJPA;
 import jakarta.servlet.RequestDispatcher;
@@ -86,9 +88,14 @@ public class IndexServices extends HttpServlet {
 		String documento = request.getParameter("documento");
 		String nombre = request.getParameter("nombre");
 		String apellido = request.getParameter("apellido");
-		Candidato c = new Candidato(documento,nombre,apellido);
+		CandidatoEntity c = new CandidatoEntity(documento,nombre,apellido);
+		
+		String eleccionId = request.getParameter("eleccionId");
+		EleccionEntity e = this.eleccionDao.select(Integer.valueOf(eleccionId));
+		
+		c.setEleccion(e);
 		this.candidatoDao.insert(c);
+		
 		response.sendRedirect("inscripcionCandidato");
 	}
-
 }

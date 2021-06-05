@@ -6,13 +6,15 @@ import javax.persistence.Persistence;
 
 public class ConexionPostgreSQLJPA {
 	
+	private EntityManagerFactory emf;
+	
 	private EntityManager em;
 	
 	private static ConexionPostgreSQLJPA conexion;
 	
 	private ConexionPostgreSQLJPA() {
 		if(this.em==null) {
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory("eleccionesUniversitariasElectronicas");
+			this.emf = Persistence.createEntityManagerFactory("eleccionesUniversitariasElectronicas");
 			this.em = emf.createEntityManager();
 		}
 	}
@@ -29,5 +31,10 @@ public class ConexionPostgreSQLJPA {
 	{
 		return this.em;
 	}
-	
+
+	public void cerrarConexio()
+	{
+		this.em.close();
+		this.emf.close();
+	}
 }

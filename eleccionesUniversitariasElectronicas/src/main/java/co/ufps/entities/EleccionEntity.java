@@ -46,5 +46,11 @@ public class EleccionEntity {
 		this.cargo = cargo;
 	}
 	
+	public void addCandidato(CandidatoEntity candidato)
+	{
+		candidatos.add(candidato);
+		candidato.setEleccion(this);
+	}
+	
 	
 }
