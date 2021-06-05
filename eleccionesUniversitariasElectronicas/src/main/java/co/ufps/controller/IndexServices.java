@@ -58,6 +58,18 @@ public class IndexServices extends HttpServlet {
 			case "/insertarCandidato":
 				insertarCandidato(request,response);
 				break;
+			case "/inscripcionVotante":
+				showInscripcionVotante(request,response);
+				break;
+			case "/insertarVotante":
+				insertarVotante(request,response);
+				break;
+			case "/formularioValidacion":
+				showValidarVotante(request,response);
+				break;
+			case "/validarVotante":
+				validarVotante(request,response);
+				break;
 			default:
 				showInscripcionCandidato(request,response);
 				break;
@@ -97,5 +109,25 @@ public class IndexServices extends HttpServlet {
 		this.candidatoDao.insert(c);
 		
 		response.sendRedirect("inscripcionCandidato");
+	}
+	
+	private void showInscripcionVotante(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void insertarVotante(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void showValidarVotante(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void validarVotante(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
 	}
 }

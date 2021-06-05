@@ -18,7 +18,7 @@
 		<div class="container">
 			<div class="row">
 				<nav class="navbar navbar-expand-md navbar-dark"
-					style="background-color: tomato">
+					style="background-color: red">
 					<div>
 						<a href="#" class="navbar-brand"></a>
 					</div>
@@ -40,8 +40,9 @@
 			<form action="insertarCandidato" method="post">
 				<select class="form-select" aria-label="Default select example" name="eleccionId">
 					<c:forEach var="i" items="${elecciones}">
+						<option selected>Seleccione elección</option>
 						<option value="${i.id}">
-						"${i.nombre}"&nbsp;"${i.cargo}"&nbsp;"${i.fechaInicio}"&nbsp;"${i.fechaFin}"
+						"${i.nombre}"&nbsp;"${i.fechaInicio}"-"${i.fechaFin}"
 						</option>
 					</c:forEach>
 				</select> 
