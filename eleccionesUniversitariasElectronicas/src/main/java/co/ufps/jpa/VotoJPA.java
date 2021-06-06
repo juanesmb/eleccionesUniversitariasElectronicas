@@ -23,6 +23,12 @@ public class VotoJPA implements VotoDao{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void insert(VotoEntity e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void update(Voto e) {
@@ -59,9 +65,9 @@ public class VotoJPA implements VotoDao{
 			String fechaCreacion = el.getFechacreacion().toString();
 			String fechaVoto = el.getFechavoto().toString();
 			String enlace = el.getEnlace();
-			int estamento = el.getEstamento().intValue();
-			int candidato = el.getCandidato().intValue();
-			int votante = el.getVotante().intValue();
+			int estamento = el.getEstamento().getId().intValue();
+			int candidato = el.getCandidato().getId().intValue();
+			int votante = el.getVotante().getId().intValue();
 			Voto bean = new Voto(id,uuid,fechaCreacion,fechaVoto,enlace,estamento,candidato,votante);
 			elecciones.add(bean);
 		}

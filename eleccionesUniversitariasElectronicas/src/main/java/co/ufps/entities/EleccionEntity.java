@@ -41,7 +41,14 @@ public class EleccionEntity {
 	@OneToMany(mappedBy="eleccion")
 	private List<VotanteEntity> votantes;
 	
+	@OneToMany(mappedBy="eleccion")
+	private List<EstamentoEntity> estamentos;
 	
+	public void addEstamento(EstamentoEntity estamento)
+	{
+		estamentos.add(estamento);
+		estamento.setEleccion(this);
+	}
 	
 	public void addVotante(VotanteEntity votante)
 	{

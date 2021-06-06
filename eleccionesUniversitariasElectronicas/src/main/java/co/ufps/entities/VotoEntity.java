@@ -5,10 +5,16 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity (name="voto")
 public class VotoEntity {
 
@@ -27,12 +33,14 @@ public class VotoEntity {
 	@Column (length=50)
 	private String enlace;
 	
-	@Column
-	private Integer estamento;
+	@ManyToOne
+	@JoinColumn(name="estamento")
+	private EstamentoEntity estamento;
+	@ManyToOne
+	@JoinColumn(name="candidato")
+	private CandidatoEntity candidato;
 	
-	@Column
-	private Integer candidato;
-	
-	@Column
-	private Integer votante;
+	@ManyToOne
+	@JoinColumn(name="votante")
+	private VotanteEntity votante;
 }

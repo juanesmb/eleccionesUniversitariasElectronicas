@@ -23,6 +23,11 @@ public class EstamentoJPA implements EstamentoDao{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void insert(EstamentoEntity e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void update(Estamento e) {
@@ -55,7 +60,7 @@ public class EstamentoJPA implements EstamentoDao{
 		for(EstamentoEntity el:e)
 		{
 			int id = el.getId().intValue();
-			int eleccion = el.getEleccion();
+			int eleccion = el.getEleccion().getId();
 			String descripcion = el.getDescripcion();
 
 			Estamento bean = new Estamento(id,eleccion,descripcion);

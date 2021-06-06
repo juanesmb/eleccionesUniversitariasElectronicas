@@ -2,8 +2,11 @@ package co.ufps.dao;
 
 import java.util.List;
 
+import javax.persistence.OneToMany;
+
 import co.ufps.beans.Candidato;
 import co.ufps.entities.CandidatoEntity;
+import co.ufps.entities.VotoEntity;
 
 public interface CandidatoDao {
 
@@ -18,4 +21,6 @@ public interface CandidatoDao {
 	public Candidato select(Integer id);
 
 	public List<Candidato> selectAll();
+	
+	
 }

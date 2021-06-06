@@ -10,6 +10,7 @@ import co.ufps.beans.TipoDocumento;
 import co.ufps.beans.Voto;
 import co.ufps.dao.CandidatoDao;
 import co.ufps.dao.EleccionDao;
+import co.ufps.dao.EstamentoDao;
 import co.ufps.dao.TipoDocumentoDao;
 import co.ufps.dao.VotanteDao;
 import co.ufps.dao.VotoDao;
@@ -40,6 +41,8 @@ public class IndexServices extends HttpServlet {
 	EleccionDao eleccionDao;
 	VotanteDao votanteDao;
 	TipoDocumentoDao tipoDocumentoDao;
+	EstamentoDao estamentoDao;
+	VotoDao votoDao;
     /**
      * Default constructor. 
      */
