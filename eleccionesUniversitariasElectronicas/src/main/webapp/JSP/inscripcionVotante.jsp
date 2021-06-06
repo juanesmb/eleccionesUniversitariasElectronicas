@@ -16,16 +16,11 @@
 	<header>
 		<div class="container">
 			<div class="row">
-				<nav class="navbar navbar-expand-md navbar-dark"
-					style="background-color: red">
-					<div>
-						<a href="#" class="navbar-brand"></a>
-					</div>
-					<!-- 
-			<ul class="navbar-nav">
-				<li><a href="<%=request.getContextPath()%>/list"
-					class="nav-link">Usuarios</a></li>
-			</ul>-->
+				<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+					<ul class="navbar-nav">
+						<li><a href="<%=request.getContextPath()%>/inscripcionCandidato"
+							class="nav-link">Inscripción de candidato</a></li>
+					</ul>
 				</nav>
 			</div>
 		</div>
@@ -37,39 +32,55 @@
 				<h2>Registro de población electoral</h2>
 
 				<form action="insertarVotante" method="post">
+				
+					<select class="form-select" aria-label="Default select example"
+						name="estamentoId">
+						<option selected>Seleccione el estamento</option>
+						<c:forEach var="i" items="${estamentos}">
+							<option value="${i.id}">"${i.descripcion}"</option>
+						</c:forEach>
+					</select> <br>
 				 
-					
+					<select class="form-select" aria-label="Default select example"
+						name="tipoDocumentoId">
+						<option selected>Seleccione el tipo de documento</option>
+						<c:forEach var="i" items="${tipodocumentos}">
+							<option value="${i.id}">"${i.descripcion}"</option>
+						</c:forEach>
+					</select> <br>
 
 					<fieldset class="form-group">
 						<label>Documento</label> <input type="text" class="form-control"
 							name="documento" required="required" maxlength="20">
 					</fieldset>
+					
+					<br>
 
 					<fieldset class="form-group">
 						<label>Nombre</label> <input type="text" class="form-control"
 							name="nombre" required="required" maxlength="100">
 					</fieldset>
+					
+					<br>
 
 					<fieldset class="form-group">
 						<label>Email</label> <input type="text" class="form-control"
 							name="email" required="required" maxlength="50">
 					</fieldset>
 		
+					<br>
+		
 					<select class="form-select" aria-label="Default select example"
 						name="eleccionId">
+						<option selected>Seleccione elección</option>
 						<c:forEach var="i" items="${elecciones}">
-							<option selected>Seleccione elección</option>
 							<option value="${i.id}">
 								"${i.nombre}"&nbsp;"${i.fechaInicio}"-"${i.fechaFin}"</option>
 						</c:forEach>
 					</select>
-					<select class="form-select" aria-label="Default select example"
-						name="tipoDocumentoId">
-						<c:forEach var="i" items="${tipodocumentos}">
-							<option selected>Seleccione el tipo de documento</option>
-							<option value="${i.id}">"${i.descripcion}"</option>
-						</c:forEach>
-					</select> <br>
+					
+					<br>
+					
 					<button type="submit" class="btn btn-danger">Registrar
 						Votante</button>
 				</form>

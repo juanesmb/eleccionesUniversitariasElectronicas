@@ -120,14 +120,10 @@ public class IndexServices extends HttpServlet {
 		String documento = request.getParameter("documento");
 		String nombre = request.getParameter("nombre");
 		String apellido = request.getParameter("apellido");
-		CandidatoEntity c = new CandidatoEntity(documento,nombre,apellido);
-		
 		String eleccionId = request.getParameter("eleccionId");
-		EleccionEntity e = this.eleccionDao.select(Integer.valueOf(eleccionId));
-		
-		c.setEleccion(e);
+		Integer eleccion = Integer.valueOf(eleccionId);
+		Candidato c = new Candidato(documento,nombre,apellido,eleccion);
 		this.candidatoDao.insert(c);
-		
 		response.sendRedirect("inscripcionCandidato");
 	}
 	
@@ -138,6 +134,9 @@ public class IndexServices extends HttpServlet {
 		
 		List<Eleccion> elecciones = eleccionDao.selectAll();
 		request.setAttribute("elecciones", elecciones);
+		
+		List<Estamento> estamentos = estamentoDao.selectAll();
+		request.setAttribute("estamentos", estamentos);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/inscripcionVotante.jsp");
 		dispatcher.forward(request, response); 

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import co.ufps.beans.Estamento;
 import co.ufps.dao.EstamentoDao;
+import co.ufps.entities.EleccionEntity;
 import co.ufps.entities.EstamentoEntity;
 import co.ufps.util.ConexionPostgreSQLJPA;
 
@@ -20,13 +22,24 @@ public class EstamentoJPA implements EstamentoDao{
 	
 	@Override
 	public void insert(Estamento e) {
-		// TODO Auto-generated method stub
+		EstamentoEntity estamento = new EstamentoEntity();
+		estamento.setDescripcion(e.getDescripcion());
 		
+		EleccionJPA eleccionJPA = new EleccionJPA();
+		EleccionEntity eleccion = eleccionJPA.select(e.getEleccion());
+		
+		estamento.setEleccion(eleccion);
+		
+		this.insert(estamento);
 	}
+	
 	@Override
 	public void insert(EstamentoEntity e) {
-		// TODO Auto-generated method stub
-		
+		EntityManager em = this.conexion.getEm();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		em.persist(e);
+		tx.commit();
 	}
 
 	@Override

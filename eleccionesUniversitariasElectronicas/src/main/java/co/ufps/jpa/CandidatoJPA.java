@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import co.ufps.beans.Candidato;
 import co.ufps.dao.CandidatoDao;
 import co.ufps.entities.CandidatoEntity;
+import co.ufps.entities.EleccionEntity;
 import co.ufps.util.ConexionPostgreSQLJPA;
 
 public class CandidatoJPA implements CandidatoDao{
@@ -24,6 +25,12 @@ public class CandidatoJPA implements CandidatoDao{
 		candidato.setDocumento(c.getDocumento());
 		candidato.setNombre(c.getNombre());
 		candidato.setApellido(c.getApellido());
+		
+		EleccionJPA eleccionJPA = new EleccionJPA();
+		EleccionEntity eleccion = eleccionJPA.select(c.getEleccion());
+		
+		candidato.setEleccion(eleccion);
+		
 		this.insert(candidato);
 	}
 	

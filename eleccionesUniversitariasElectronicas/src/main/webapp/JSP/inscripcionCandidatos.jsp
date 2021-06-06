@@ -17,16 +17,14 @@
 	<header>
 		<div class="container">
 			<div class="row">
-				<nav class="navbar navbar-expand-md navbar-dark"
-					style="background-color: red">
-					<div>
-						<a href="#" class="navbar-brand"></a>
+				<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav">
+						<li>
+							<a href="<%=request.getContextPath()%>/inscripcionVotante" class="nav-link">Inscripción de votantes</a>
+						</li>
+					</ul>
 					</div>
-					<!-- 
-			<ul class="navbar-nav">
-				<li><a href="<%=request.getContextPath()%>/list"
-					class="nav-link">Usuarios</a></li>
-			</ul>-->
 				</nav>
 
 			</div>
@@ -39,8 +37,8 @@
 			<h2>Inscripción de candidato</h2>
 			<form action="insertarCandidato" method="post">
 				<select class="form-select" aria-label="Default select example" name="eleccionId">
+					<option selected>Seleccione elección</option>
 					<c:forEach var="i" items="${elecciones}">
-						<option selected>Seleccione elección</option>
 						<option value="${i.id}">
 						"${i.nombre}"&nbsp;"${i.fechaInicio}"-"${i.fechaFin}"
 						</option>

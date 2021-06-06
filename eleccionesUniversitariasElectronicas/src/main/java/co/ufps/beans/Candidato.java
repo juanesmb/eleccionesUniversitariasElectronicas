@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -28,5 +29,13 @@ public class Candidato implements Serializable {
 		this.documento = documento;
 		this.nombre = nombre;
 		this.apellido = apellido;
+	}
+	
+	public Candidato(String documento, String nombre, String apellido, Integer eleccion)
+	{
+		this.documento = documento;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.eleccion = eleccion;
 	}
 }

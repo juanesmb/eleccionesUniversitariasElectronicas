@@ -34,7 +34,6 @@ public class CandidatoEntity {
 	@Column (length=50)
 	private String apellido;
 	
-	
 	@ManyToOne
 	@JoinColumn(name="eleccion")
 	private EleccionEntity eleccion;
