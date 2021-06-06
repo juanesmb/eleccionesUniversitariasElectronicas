@@ -2,6 +2,7 @@ package co.ufps.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import co.ufps.beans.Candidato;
@@ -16,8 +17,10 @@ import co.ufps.dao.VotanteDao;
 import co.ufps.dao.VotoDao;
 import co.ufps.entities.CandidatoEntity;
 import co.ufps.entities.EleccionEntity;
+import co.ufps.entities.EstamentoEntity;
 import co.ufps.entities.TipoDocumentoEntity;
 import co.ufps.entities.VotanteEntity;
+import co.ufps.entities.VotoEntity;
 import co.ufps.jpa.CandidatoJPA;
 import co.ufps.jpa.EleccionJPA;
 import co.ufps.jpa.TipoDocumentoJPA;
@@ -131,8 +134,10 @@ public class IndexServices extends HttpServlet {
 		// TODO Auto-generated method stub
 		List<TipoDocumento> tipodocumentos = tipoDocumentoDao.selectAll();
 		request.setAttribute("tipodocumentos",tipodocumentos);
+		
 		List<Eleccion> elecciones = eleccionDao.selectAll();
 		request.setAttribute("elecciones", elecciones);
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/inscripcionVotante.jsp");
 		dispatcher.forward(request, response); 
 	}
@@ -146,6 +151,7 @@ public class IndexServices extends HttpServlet {
 
 		String eleccionId = request.getParameter("eleccionId");
 		EleccionEntity e = this.eleccionDao.select(Integer.valueOf(eleccionId));
+		
 		String tipoDocumentoId = request.getParameter("tipoDocumentoId");
 		TipoDocumentoEntity t = this.tipoDocumentoDao.select(Integer.valueOf(tipoDocumentoId));
 		
@@ -157,13 +163,41 @@ public class IndexServices extends HttpServlet {
 		
 	}
 	
-	private void showValidarVotante(HttpServletRequest request, HttpServletResponse response) {
+	private void showValidarVotante(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException  {
 		// TODO Auto-generated method stub
+		List<TipoDocumento> tipodocumentos = tipoDocumentoDao.selectAll();
+		request.setAttribute("tipodocumentos",tipodocumentos);
 		
+		List<Eleccion> elecciones = eleccionDao.selectAll();
+		request.setAttribute("elecciones", elecciones);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/validacionVoto.jsp");
+		dispatcher.forward(request, response); 
 	}
 
-	private void validarVotante(HttpServletRequest request, HttpServletResponse response) {
+	private void validarVotante(HttpServletRequest request, HttpServletResponse response)  throws ServletException, SQLException, IOException{
 		// TODO Auto-generated method stub
+		String estamentoId = request.getParameter("estamentoId");
+		EstamentoEntity e = this.estamentoDao.select(Integer.valueOf(estamentoId));
+		
+		String candidatoId = request.getParameter("candidatoId");
+		CandidatoEntity c = this.candidatoDao.select(Integer.valueOf(candidatoId));
+		
+		String votanteId = request.getParameter("votanteId");
+		VotanteEntity t = this.votanteDao.select(Integer.valueOf(votanteId));
+		
+		String uuid = request.getParameter("uuid");
+		String enlace = request.getParameter("enlace");
+		Timestamp creacion = Timestamp.valueOf(request.getParameter("fechacreacion"));
+		Timestamp voto = Timestamp.valueOf(request.getParameter("fechacreacion"));
+		VotoEntity v = new VotoEntity(creacion,voto,uuid,enlace);
+		
+		v.setEstamento(e);
+		v.setVotante(t);
+		v.setCandidato(c);
+		this.votoDao.insert(v);
+		
+		response.sendRedirect("inscripcionVotante");
 		
 	}
 }

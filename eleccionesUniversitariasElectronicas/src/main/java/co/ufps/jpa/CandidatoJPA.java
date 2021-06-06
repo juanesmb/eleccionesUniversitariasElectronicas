@@ -48,7 +48,7 @@ public class CandidatoJPA implements CandidatoDao{
 	}
 
 	@Override
-	public Candidato select(Integer id) {
+	public CandidatoEntity select(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

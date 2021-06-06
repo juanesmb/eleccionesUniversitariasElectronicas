@@ -12,7 +12,7 @@ public interface EstamentoDao {
 	public void insert(EstamentoEntity es);
 public void update(Estamento es);
 public void delete(Integer id);
-public Estamento select(Integer id);
+public EstamentoEntity select(Integer id);
 public List<Estamento> selectAll();
 
 }

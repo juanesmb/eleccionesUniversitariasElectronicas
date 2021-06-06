@@ -42,7 +42,7 @@ public class EstamentoJPA implements EstamentoDao{
 	}
 
 	@Override
-	public Estamento select(Integer id) {
+	public EstamentoEntity select(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

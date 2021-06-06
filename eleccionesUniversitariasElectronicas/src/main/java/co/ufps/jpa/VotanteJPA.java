@@ -52,7 +52,7 @@ public class VotanteJPA implements VotanteDao{
 	}
 
 	@Override
-	public Votante select(Integer id) {
+	public VotanteEntity select(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

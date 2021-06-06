@@ -43,4 +43,14 @@ public class VotoEntity {
 	@ManyToOne
 	@JoinColumn(name="votante")
 	private VotanteEntity votante;
+
+	public VotoEntity(Timestamp fechacreacion, Timestamp fechavoto, String uuid, String enlace) {
+		super();
+		this.fechacreacion = fechacreacion;
+		this.fechavoto = fechavoto;
+		this.uuid = uuid;
+		this.enlace = enlace;
+	}
+	
+	
 }

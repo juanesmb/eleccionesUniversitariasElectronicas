@@ -18,7 +18,7 @@ public interface CandidatoDao {
 
 	public void delete(Integer id);
 
-	public Candidato select(Integer id);
+	public CandidatoEntity select(Integer id);
 
 	public List<Candidato> selectAll();
 	

@@ -13,7 +13,7 @@ public interface VotanteDao {
 	public void insert(VotanteEntity v);
 public void update(Votante es);
 public void delete(Integer id);
-public Votante select(Integer id);
+public VotanteEntity select(Integer id);
 public List<Votante> selectAll();
 
 }
