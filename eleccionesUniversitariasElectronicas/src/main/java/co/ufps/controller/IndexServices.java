@@ -7,6 +7,7 @@ import java.util.List;
 
 import co.ufps.beans.Candidato;
 import co.ufps.beans.Eleccion;
+import co.ufps.beans.Estamento;
 import co.ufps.beans.TipoDocumento;
 import co.ufps.beans.Voto;
 import co.ufps.dao.CandidatoDao;
@@ -165,11 +166,14 @@ public class IndexServices extends HttpServlet {
 	
 	private void showValidarVotante(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException  {
 		// TODO Auto-generated method stub
-		List<TipoDocumento> tipodocumentos = tipoDocumentoDao.selectAll();
-		request.setAttribute("tipodocumentos",tipodocumentos);
+		List<Estamento> estamentos = estamentoDao.selectAll();
+		request.setAttribute("estamentos",estamentos);
 		
-		List<Eleccion> elecciones = eleccionDao.selectAll();
-		request.setAttribute("elecciones", elecciones);
+		List<Candidato> candidatos = candidatoDao.selectAll();
+		request.setAttribute("candidatos", candidatos);
+		
+		String votanteId = request.getParameter("votanteId");
+		VotanteEntity t = this.votanteDao.select(Integer.valueOf(votanteId));
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/validacionVoto.jsp");
 		dispatcher.forward(request, response); 
