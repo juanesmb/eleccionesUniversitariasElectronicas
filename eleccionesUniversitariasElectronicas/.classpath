@@ -30,6 +30,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/juane/AppData/Roaming/SPB_16.6/git/repository3/eleccionesUniversitariasElectronicas/javax.mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

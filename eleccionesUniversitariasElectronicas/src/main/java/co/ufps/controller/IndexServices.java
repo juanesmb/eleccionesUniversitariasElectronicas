@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 import co.ufps.beans.Candidato;
 import co.ufps.beans.Eleccion;
@@ -95,6 +96,9 @@ public class IndexServices extends HttpServlet {
 			case "/validarVotante":
 				validarVotante(request,response);
 				break;
+			case "/elegirCandidato":
+				showCandidatos(request,response);
+				break;
 			default:
 				showInscripcionCandidato(request,response);
 				break;
@@ -164,9 +168,12 @@ public class IndexServices extends HttpServlet {
 		v.setTipodocumento(t);
 		this.votanteDao.insert(v);
 		
-		
+		UUID uuid = UUID.randomUUID();
+        String randomUUIDString = uuid.toString();
+        
+        //http://localhost:8080/eleccionesUniversitariasElectronicas/erhwedvwekbveorihg/validarVotante/
 		ServicioEmail servicioEmail = new ServicioEmail();
-		String link ="";
+		String link =request.getContextPath() + "/" + uuid + "/" + e.getId();
 		servicioEmail.enviarEmail(email, e.getNombre(), "link para la validar y escoger su voto: " + link);
 		
 		response.sendRedirect("inscripcionVotante");
@@ -211,6 +218,11 @@ public class IndexServices extends HttpServlet {
 		this.votoDao.insert(v);
 		
 		response.sendRedirect("inscripcionVotante");
+		
+	}
+	
+	private void showCandidatos(HttpServletRequest request, HttpServletResponse response) {
+		
 		
 	}
 }
