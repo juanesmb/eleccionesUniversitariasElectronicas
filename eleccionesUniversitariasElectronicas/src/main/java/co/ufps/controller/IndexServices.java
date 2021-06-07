@@ -24,8 +24,11 @@ import co.ufps.entities.VotanteEntity;
 import co.ufps.entities.VotoEntity;
 import co.ufps.jpa.CandidatoJPA;
 import co.ufps.jpa.EleccionJPA;
+import co.ufps.jpa.EstamentoJPA;
 import co.ufps.jpa.TipoDocumentoJPA;
 import co.ufps.jpa.VotanteJPA;
+import co.ufps.jpa.VotoJPA;
+import co.ufps.util.ServicioEmail;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -62,6 +65,8 @@ public class IndexServices extends HttpServlet {
 		this.eleccionDao = new EleccionJPA();
 		this.tipoDocumentoDao = new TipoDocumentoJPA();
 		this.votanteDao = new VotanteJPA();
+		this.estamentoDao = new EstamentoJPA();
+		this.votoDao = new VotoJPA();
 	}
 
 	/**
@@ -135,7 +140,7 @@ public class IndexServices extends HttpServlet {
 		List<Eleccion> elecciones = eleccionDao.selectAll();
 		request.setAttribute("elecciones", elecciones);
 		
-		List<Estamento> estamentos = estamentoDao.selectAll();
+		List<Estamento> estamentos = estamentoDao.selectEleccion(3);
 		request.setAttribute("estamentos", estamentos);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/inscripcionVotante.jsp");
@@ -158,6 +163,11 @@ public class IndexServices extends HttpServlet {
 		v.setEleccion(e);
 		v.setTipodocumento(t);
 		this.votanteDao.insert(v);
+		
+		
+		ServicioEmail servicioEmail = new ServicioEmail();
+		String link ="";
+		servicioEmail.enviarEmail(email, e.getNombre(), "link para la validar y escoger su voto: " + link);
 		
 		response.sendRedirect("inscripcionVotante");
 		

@@ -81,5 +81,28 @@ public class EstamentoJPA implements EstamentoDao{
 		}
 		return elecciones;
 	}
+	
+	public List<Estamento> selectEleccion(int i) {
+		EntityManager em = this.conexion.getEm();
+		List<EstamentoEntity> estamentos = em.createQuery("from estamento", EstamentoEntity.class).getResultList();
+		return selectEleccion(estamentos,i);
+	}
+	
+	private List<Estamento> selectEleccion(List<EstamentoEntity> e, int i)
+	{
+		List<Estamento> estamentos = new ArrayList<>();
+		for(EstamentoEntity el:e){
+			
+		if(el.getEleccion().getId()==i) {
+			int id = el.getId().intValue();
+			int eleccion = el.getEleccion().getId();
+			String descripcion = el.getDescripcion();
 
+			Estamento bean = new Estamento(id,eleccion,descripcion);
+			estamentos.add(bean);
+		}
+		
+		}
+		return estamentos;
+	}
 }

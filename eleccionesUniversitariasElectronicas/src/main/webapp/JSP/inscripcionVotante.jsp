@@ -72,6 +72,7 @@
 		
 					<select class="form-select" aria-label="Default select example"
 						name="eleccionId">
+						<label>Elección</label> 
 						<option selected>Seleccione elección</option>
 						<c:forEach var="i" items="${elecciones}">
 							<option value="${i.id}">
