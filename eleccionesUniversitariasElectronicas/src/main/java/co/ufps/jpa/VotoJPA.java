@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import co.ufps.beans.Voto;
 import co.ufps.dao.VotoDao;
@@ -26,8 +27,11 @@ public class VotoJPA implements VotoDao{
 	
 	@Override
 	public void insert(VotoEntity e) {
-		// TODO Auto-generated method stub
-		
+		EntityManager em = this.conexion.getEm();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		em.persist(e);
+		tx.commit();
 	}
 
 	@Override

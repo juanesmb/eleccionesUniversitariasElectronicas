@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 public class VotoEntity {
 
 	@Id
+	@GeneratedValue
 	private Integer id;
 	
 	@Column
@@ -51,6 +53,9 @@ public class VotoEntity {
 		this.uuid = uuid;
 		this.enlace = enlace;
 	}
+
+	
+	
 	
 	
 }

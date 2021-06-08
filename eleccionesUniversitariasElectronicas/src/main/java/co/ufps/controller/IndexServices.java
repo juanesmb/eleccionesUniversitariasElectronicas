@@ -98,8 +98,8 @@ public class IndexServices extends HttpServlet {
 			case "/validarVotante":
 				validarVotante(request,response);
 				break;
-			case "/elegirCandidato":
-				showCandidatos(request,response);
+			case "/registrarVoto":
+				registrarVoto(request,response);
 				break;
 			default:
 				showInscripcionCandidato(request,response);
@@ -255,6 +255,30 @@ public class IndexServices extends HttpServlet {
 		}
 	}
 	
+	private void registrarVoto(HttpServletRequest request, HttpServletResponse response)  throws ServletException, SQLException, IOException{
+		String estamentoId = request.getParameter("estamentoId");
+		EstamentoEntity e = this.estamentoDao.select(Integer.valueOf(estamentoId));
+		
+		String candidatoId = request.getParameter("candidatoId");
+		CandidatoEntity c = this.candidatoDao.select(Integer.valueOf(candidatoId));
+		
+		String votanteId = request.getParameter("votanteId");
+		VotanteEntity t = this.votanteDao.select(Integer.valueOf(votanteId));
+		
+		Timestamp creacion = Timestamp.valueOf("");
+		Timestamp voto = Timestamp.valueOf(request.getParameter("fechacreacion"));
+		VotoEntity v = new VotoEntity();
+		
+		v.setEstamento(e);
+		v.setVotante(t);
+		v.setCandidato(c);
+		this.votoDao.insert(v);
+		response.sendRedirect("inscripcionVotante");
+		
+		
+		
+	}
+	
 	private void showCandidatos(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 				/*List<Estamento> estamentos = estamentoDao.selectAll();
@@ -278,13 +302,16 @@ public class IndexServices extends HttpServlet {
 				
 				String uuid = request.getParameter("uuid");
 				String enlace = request.getParameter("enlace");
-				Timestamp creacion = Timestamp.valueOf(request.getParameter("fechacreacion"));
-				Timestamp voto = Timestamp.valueOf(request.getParameter("fechacreacion"));
+				
+				Timestamp creacion = Timestamp.valueOf("2020-12-11 08:10:05");
+				Timestamp voto = Timestamp.valueOf("2020-12-11 08:10:05");
 				VotoEntity v = new VotoEntity(creacion,voto,uuid,enlace);
 				
 				v.setEstamento(e);
 				v.setVotante(t);
 				v.setCandidato(c);
+				v.setFechacreacion(creacion);
+				v.setFechavoto(voto);
 				this.votoDao.insert(v);
 				
 				//response.sendRedirect("inscripcionVotante");
