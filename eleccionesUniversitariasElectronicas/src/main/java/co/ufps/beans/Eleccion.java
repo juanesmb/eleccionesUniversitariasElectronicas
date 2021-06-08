@@ -16,4 +16,10 @@ public class Eleccion implements Serializable {
 	private String fechaInicio;
 	private String fechaFin;
 	private String cargo;
+	
+	public Eleccion(String cargo, String fechaInicio, String fechaFin) {
+		this.cargo = cargo;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+	}
 }

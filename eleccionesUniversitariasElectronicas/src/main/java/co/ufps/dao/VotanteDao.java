@@ -15,5 +15,6 @@ public void update(Votante es);
 public void delete(Integer id);
 public VotanteEntity select(Integer id);
 public List<Votante> selectAll();
+public VotanteEntity select(String documento);
 
 }

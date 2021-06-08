@@ -56,8 +56,9 @@ public class EstamentoJPA implements EstamentoDao{
 
 	@Override
 	public EstamentoEntity select(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em = this.conexion.getEm();
+		EstamentoEntity e = em.find(EstamentoEntity.class, id);
+		return e;
 	}
 
 	@Override

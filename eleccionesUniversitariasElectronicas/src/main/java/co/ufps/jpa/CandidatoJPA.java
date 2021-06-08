@@ -1,11 +1,13 @@
 package co.ufps.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import co.ufps.beans.Candidato;
+import co.ufps.beans.Eleccion;
 import co.ufps.dao.CandidatoDao;
 import co.ufps.entities.CandidatoEntity;
 import co.ufps.entities.EleccionEntity;
@@ -59,11 +61,27 @@ public class CandidatoJPA implements CandidatoDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public List<Candidato> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em = this.conexion.getEm();
+		List<CandidatoEntity> candidatos = em.createQuery("from candidato", CandidatoEntity.class).getResultList();
+		return selectAll(candidatos);
+	}
+
+	public List<Candidato> selectAll(List<CandidatoEntity> c) {
+		List<Candidato> candidatos = new ArrayList<>();
+		for(CandidatoEntity can:c)
+		{
+			Integer id = can.getId();
+			String documento = can.getDocumento();
+			String nombre = can.getNombre();
+			String apellido = can.getApellido();
+			Integer numero = can.getNumero();
+			Candidato bean = new Candidato(id,documento,nombre,apellido,numero);
+			candidatos.add(bean);
+		}
+		return candidatos;
 	}
 
 }

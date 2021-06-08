@@ -16,8 +16,7 @@
 	<header>
 		<div class="container">
 			<div class="row">
-				<nav class="navbar navbar-expand-md navbar-dark"
-					style="background-color: red">
+				<nav class="navbar navbar-expand-md navbar-dark">
 					<div>
 						<a href="#" class="navbar-brand"></a>
 					</div>
@@ -42,7 +41,14 @@
 				<h3>"${estamento.descripcion}"</h3>
 
 				<form action="validarVotante" method="post">
-
+					
+					<input type="hidden" class="form-control" name="eleccionCargo" required="required" value="${eleccion.cargo}">
+					<input type="hidden" class="form-control" name="fechaInicio" required="required" value="${eleccion.fechaInicio}">
+					<input type="hidden" class="form-control" name="fechaFin" required="required" value="${eleccion.fechaFin}}">
+					<input type="hidden" class="form-control" name="id" required="required" value="${votante.id}">
+					<input type="hidden" class="form-control" name="estamentoId" required="required" value="${estamento.id}">
+					<input type="hidden" class="form-control" name="estamentoDescripcion" required="required" value="${estamento.descripcion}">
+							
 					<fieldset class="form-group">
 						<label>Nombre:</label> <input type="text" class="form-control"
 							name="nombre" required="required" maxlength="100"
@@ -55,10 +61,10 @@
 							value="${votante.email}" readonly>
 					</fieldset>
 
-					<select class="form-select" aria-label="Default select example"
-						name="documentoId">
-						<c:forEach var="i" items="${documentos}">
-							<option selected>Seleccione el tipo de documento</option>
+					<br>
+					<select class="form-select" aria-label="Default select example"name="documentoId">
+						<option selected>Seleccione tipo de documento</option>
+						<c:forEach var="i" items="${tipoDocumentos}">
 							<option value="${i.id}">"${i.descripcion}"</option>
 						</c:forEach>
 					</select>
@@ -72,6 +78,9 @@
 				</form>
 
 				<div class="alert alert-warning" role="alert">Confirma tus datos y completa la información para continuar </div>
+				<c:if test="${datosErroneos==true}">
+					<div class="alert alert-danger" role="alert">Datos erróneos</div>
+				</c:if>
 			</div>
 		</div>
 	</div>

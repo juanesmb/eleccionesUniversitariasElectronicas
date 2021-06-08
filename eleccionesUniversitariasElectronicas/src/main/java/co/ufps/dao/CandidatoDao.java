@@ -6,6 +6,7 @@ import javax.persistence.OneToMany;
 
 import co.ufps.beans.Candidato;
 import co.ufps.entities.CandidatoEntity;
+import co.ufps.entities.EleccionEntity;
 import co.ufps.entities.VotoEntity;
 
 public interface CandidatoDao {

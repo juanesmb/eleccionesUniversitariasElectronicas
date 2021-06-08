@@ -22,4 +22,8 @@ public class Estamento implements Serializable {
 
 	private String descripcion;
 
+	public Estamento(Integer id, String descripcion) {
+		this.id = id;
+		this.descripcion = descripcion;
+	}
 }

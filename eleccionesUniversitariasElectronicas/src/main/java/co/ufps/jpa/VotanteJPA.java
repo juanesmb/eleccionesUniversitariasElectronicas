@@ -10,6 +10,7 @@ import co.ufps.beans.Candidato;
 import co.ufps.beans.Votante;
 import co.ufps.dao.VotanteDao;
 import co.ufps.entities.CandidatoEntity;
+import co.ufps.entities.EstamentoEntity;
 import co.ufps.entities.VotanteEntity;
 import co.ufps.util.ConexionPostgreSQLJPA;
 
@@ -53,8 +54,15 @@ public class VotanteJPA implements VotanteDao{
 
 	@Override
 	public VotanteEntity select(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em = this.conexion.getEm();
+		VotanteEntity v = em.find(VotanteEntity.class, id);
+		return v;
+	}
+	
+	public VotanteEntity select(String documento) {
+		EntityManager em = this.conexion.getEm();
+		VotanteEntity votante = (VotanteEntity)em.createQuery("SELECT v FROM votante v WHERE documento='" + documento + "'").getSingleResult();
+		return votante;
 	}
 
 	@Override

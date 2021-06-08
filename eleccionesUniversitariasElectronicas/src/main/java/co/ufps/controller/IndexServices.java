@@ -10,6 +10,7 @@ import co.ufps.beans.Candidato;
 import co.ufps.beans.Eleccion;
 import co.ufps.beans.Estamento;
 import co.ufps.beans.TipoDocumento;
+import co.ufps.beans.Votante;
 import co.ufps.beans.Voto;
 import co.ufps.dao.CandidatoDao;
 import co.ufps.dao.EleccionDao;
@@ -51,6 +52,7 @@ public class IndexServices extends HttpServlet {
 	TipoDocumentoDao tipoDocumentoDao;
 	EstamentoDao estamentoDao;
 	VotoDao votoDao;
+	String host = "http://localhost:8080/";
     /**
      * Default constructor. 
      */
@@ -164,16 +166,28 @@ public class IndexServices extends HttpServlet {
 		String tipoDocumentoId = request.getParameter("tipoDocumentoId");
 		TipoDocumentoEntity t = this.tipoDocumentoDao.select(Integer.valueOf(tipoDocumentoId));
 		
+		String estamendoId = request.getParameter("estamentoId");
+		int idEstamento = Integer.parseInt(estamendoId);
+		EstamentoEntity estamento = this.estamentoDao.select(idEstamento);
+		
 		v.setEleccion(e);
 		v.setTipodocumento(t);
 		this.votanteDao.insert(v);
 		
+		v = this.votanteDao.select(documento);
+		
 		UUID uuid = UUID.randomUUID();
         String randomUUIDString = uuid.toString();
         
-        //http://localhost:8080/eleccionesUniversitariasElectronicas/erhwedvwekbveorihg/validarVotante/
-		ServicioEmail servicioEmail = new ServicioEmail();
-		String link =request.getContextPath() + "/" + uuid + "/" + e.getId();
+   
+		ServicioEmail servicioEmail = new ServicioEmail("ejemplo.email.ufps@gmail.com", "nfrbdxklxggkgoko");
+		//http://localhost:8080/eleccionesUniversitariasElectronicas/formularioValidacion?
+		String link = host + request.getContextPath() + "/" +  "formularioValidacion" + "?nombre=" + nombre + "&email=" + 
+		email + "&id=" + v.getId() + "&eleccionCargo=" + e.getCargo() + "&fechaInicio=" + e.getFechaInicio().toString() + "&fechaFin=" + 
+	    e.getFechaFin().toString() + "&estamentoId=" + estamento.getId().intValue() +"&estamento=" + estamento.getDescripcion();
+		
+		System.out.println(link);
+		
 		servicioEmail.enviarEmail(email, e.getNombre(), "link para la validar y escoger su voto: " + link);
 		
 		response.sendRedirect("inscripcionVotante");
@@ -181,48 +195,98 @@ public class IndexServices extends HttpServlet {
 	}
 	
 	private void showValidarVotante(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException  {
-		// TODO Auto-generated method stub
-		List<Estamento> estamentos = estamentoDao.selectAll();
-		request.setAttribute("estamentos",estamentos);
+		Integer id = Integer.parseInt(request.getParameter("id"));
+		String nombre = request.getParameter("nombre");
+		String email = request.getParameter("email");
+		Votante v = new Votante(id,nombre,email);
 		
-		List<Candidato> candidatos = candidatoDao.selectAll();
-		request.setAttribute("candidatos", candidatos);
+		String eleccionCargo = request.getParameter("eleccionCargo");
+		String fechaInicio = request.getParameter("fechaInicio");
+		String fechaFin = request.getParameter("fechaFin");
+		Eleccion e = new Eleccion(eleccionCargo,fechaInicio,fechaFin);
 		
-		String votanteId = request.getParameter("votanteId");
-		VotanteEntity t = this.votanteDao.select(Integer.valueOf(votanteId));
+		Integer estamentoId = Integer.parseInt(request.getParameter("estamentoId"));
+		String estamentoDescripcion = request.getParameter("estamento");
+		Estamento est = new Estamento(estamentoId, estamentoDescripcion);
+		
+		List<TipoDocumento> tipoDocumentos = tipoDocumentoDao.selectAll();
+		
+		request.setAttribute("tipoDocumentos",tipoDocumentos);
+		request.setAttribute("votante", v);
+		request.setAttribute("eleccion", e);
+		request.setAttribute("estamento", est);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/validacionVoto.jsp");
-		dispatcher.forward(request, response); 
+		dispatcher.forward(request, response);
 	}
 
-	private void validarVotante(HttpServletRequest request, HttpServletResponse response)  throws ServletException, SQLException, IOException{
-		// TODO Auto-generated method stub
-		String estamentoId = request.getParameter("estamentoId");
-		EstamentoEntity e = this.estamentoDao.select(Integer.valueOf(estamentoId));
+	private void validarVotante(HttpServletRequest request, HttpServletResponse response)  throws ServletException, SQLException, IOException
+	{
+		Integer id = Integer.parseInt(request.getParameter("id"));
+		String documento = request.getParameter("documento");
+		Integer tipoDocumento = Integer.parseInt(request.getParameter("documentoId"));
+		VotanteEntity v = this.votanteDao.select(id);
 		
-		String candidatoId = request.getParameter("candidatoId");
-		CandidatoEntity c = this.candidatoDao.select(Integer.valueOf(candidatoId));
+		Integer estamentoId = Integer.parseInt(request.getParameter("estamentoId"));
+		String estamentoDescripcion = request.getParameter("estamentoDescripcion");
+		Estamento est = new Estamento(estamentoId, estamentoDescripcion);
 		
-		String votanteId = request.getParameter("votanteId");
-		VotanteEntity t = this.votanteDao.select(Integer.valueOf(votanteId));
+		String eleccionCargo = request.getParameter("eleccionCargo");
+		String fechaInicio = request.getParameter("fechaInicio");
+		String fechaFin = request.getParameter("fechaFin");
+		Eleccion e = new Eleccion(eleccionCargo,fechaInicio,fechaFin);
 		
-		String uuid = request.getParameter("uuid");
-		String enlace = request.getParameter("enlace");
-		Timestamp creacion = Timestamp.valueOf(request.getParameter("fechacreacion"));
-		Timestamp voto = Timestamp.valueOf(request.getParameter("fechacreacion"));
-		VotoEntity v = new VotoEntity(creacion,voto,uuid,enlace);
+		List<Candidato> candidatos = this.candidatoDao.selectAll();
 		
-		v.setEstamento(e);
-		v.setVotante(t);
-		v.setCandidato(c);
-		this.votoDao.insert(v);
 		
-		response.sendRedirect("inscripcionVotante");
-		
+		if(v.getDocumento().equals(documento) && v.getTipodocumento().getId().intValue()==tipoDocumento.intValue())
+		{
+			request.setAttribute("votante", v);
+			request.setAttribute("estamento", est);
+			request.setAttribute("eleccion", e);
+			request.setAttribute("candidatos", candidatos);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/elegirCandidato.jsp");
+			dispatcher.forward(request, response);
+		}else {
+			request.setAttribute("datosErroneos", true);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/validacionVoto.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 	
 	private void showCandidatos(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+				/*List<Estamento> estamentos = estamentoDao.selectAll();
+				request.setAttribute("estamentos",estamentos);
+				
+				List<Candidato> candidatos = candidatoDao.selectAll();
+				request.setAttribute("candidatos", candidatos);
+				
+				String votanteId = request.getParameter("votanteId");
+				VotanteEntity t = this.votanteDao.select(Integer.valueOf(votanteId));*/
 		
-		
+		// TODO Auto-generated method stub
+				String estamentoId = request.getParameter("estamentoId");
+				EstamentoEntity e = this.estamentoDao.select(Integer.valueOf(estamentoId));
+				
+				String candidatoId = request.getParameter("candidatoId");
+				CandidatoEntity c = this.candidatoDao.select(Integer.valueOf(candidatoId));
+				
+				String votanteId = request.getParameter("votanteId");
+				VotanteEntity t = this.votanteDao.select(Integer.valueOf(votanteId));
+				
+				String uuid = request.getParameter("uuid");
+				String enlace = request.getParameter("enlace");
+				Timestamp creacion = Timestamp.valueOf(request.getParameter("fechacreacion"));
+				Timestamp voto = Timestamp.valueOf(request.getParameter("fechacreacion"));
+				VotoEntity v = new VotoEntity(creacion,voto,uuid,enlace);
+				
+				v.setEstamento(e);
+				v.setVotante(t);
+				v.setCandidato(c);
+				this.votoDao.insert(v);
+				
+				//response.sendRedirect("inscripcionVotante");
 	}
 }
